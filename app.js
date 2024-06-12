@@ -43,6 +43,19 @@ app.post("/search", (req, res) => {
     )
 })
 
+//creating delete API
+
+app.post("/delete",(req,res)=>{
+    let input=req.body
+    watchmodel.findByIdAndDelete(input._id).then(
+        (response)=>{res.json({"status":"success"})}
+    ).catch(
+        (response)=>{res.json({"status":"error"})}
+    )
+})
+
+
+
 
 app.listen(1002, () => {
     console.log("server started")
