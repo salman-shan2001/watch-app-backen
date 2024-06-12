@@ -7,11 +7,12 @@ const { watchmodel } = require("./module/watch")
 // add mogoose link
 mongoose.connect("mongodb+srv://salmanshan:salman642001@cluster0.odxej1b.mongodb.net/watchDB?retryWrites=true&w=majority&appName=Cluster0")
 
-
+// express  assigned to variable app
 const app = express()
 app.use(cors())
-app.use(express.json())
+app.use(express.json())     // converted to json
 
+//creating add API
 app.post("/",
     (req, res) => {
         const input = req.body
@@ -23,11 +24,25 @@ app.post("/",
 )
 
 
+//creating View API
+
 app.post("/view", (req, res) => {
     watchmodel.find().then(
         (data) => { res.json(data) }
     ).catch()
 })
+
+//creating search API
+
+app.post("/search", (req, res) => {
+    const input=req.body
+    watchmodel.find(input).then(
+        (data)=>{res.json(data)}
+    ).catch(
+        (error)=>{res.json(error)}
+    )
+})
+
 
 app.listen(1002, () => {
     console.log("server started")
